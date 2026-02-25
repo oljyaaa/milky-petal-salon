@@ -1,27 +1,27 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Sparkles, Scissors, Heart, Palette, Award, Users, Shield, Star } from "lucide-react";
+import { Sparkles, Heart, Award, Users, Shield, Star, Droplets, Leaf } from "lucide-react";
 import Layout from "@/components/Layout";
 import heroImage from "@/assets/hero-salon.jpg";
 
 const services = [
-  { icon: Scissors, title: "Hair Styling", desc: "From cuts to color, our stylists create your perfect look." },
-  { icon: Sparkles, title: "Skin Care", desc: "Facials and treatments for radiant, healthy skin." },
-  { icon: Heart, title: "Nail Art", desc: "Express yourself with our premium nail services." },
-  { icon: Palette, title: "Makeup", desc: "Professional makeup for any occasion, from bridal to editorial." },
+  { icon: Droplets, title: "Чистка обличчя", desc: "Професійне очищення для здорового та сяючого вигляду вашої шкіри." },
+  { icon: Sparkles, title: "Догляд за шкірою", desc: "Індивідуально підібрані процедури для зволоження та омолодження." },
+  { icon: Leaf, title: "Пілінги", desc: "Оновлення текстури шкіри, вирівнювання тону та боротьба з недоліками." },
+  { icon: Heart, title: "Ін'єкційна косметологія", desc: "Сучасні методики збереження молодості та краси." },
 ];
 
 const whyUs = [
-  { icon: Award, title: "Award-Winning Team", desc: "Our stylists have been recognized across the industry for excellence." },
-  { icon: Users, title: "Personalized Experience", desc: "Every treatment is tailored to your unique needs and preferences." },
-  { icon: Shield, title: "Premium Products", desc: "We use only the finest, sustainably sourced beauty products." },
-  { icon: Sparkles, title: "Relaxing Atmosphere", desc: "A serene environment designed to help you unwind and recharge." },
+  { icon: Award, title: "Медична освіта", desc: "Процедури виконує сертифікований спеціаліст з глибоким розумінням анатомії." },
+  { icon: Users, title: "Індивідуальний підхід", desc: "Кожна процедура підбирається виключно під потреби вашої шкіри." },
+  { icon: Shield, title: "Преміум препарати", desc: "Використовуємо лише сертифіковану та перевірену косметику світових брендів." },
+  { icon: Sparkles, title: "Комфорт та безпека", desc: "Стерильність та розслаблююча атмосфера на кожному сеансі." },
 ];
 
 const testimonials = [
-  { name: "Sarah M.", rating: 5, text: "Absolutely loved my experience at Bloom! My balayage turned out exactly as I envisioned." },
-  { name: "Emily R.", rating: 5, text: "Best facial I've ever had. My skin has never looked so radiant." },
-  { name: "Jessica L.", rating: 5, text: "I've been coming here for over a year and the quality is always consistent!" },
+  { name: "Анна М.", rating: 5, text: "Дуже задоволена результатом! Шкіра після чистки просто сяє, а підібраний домашній догляд творить дива." },
+  { name: "Олена Р.", rating: 5, text: "Найкращий косметолог! Завжди уважна, процедури проходять максимально комфортно." },
+  { name: "Вікторія Л.", rating: 5, text: "Ходжу в Beauty Room вже більше року. Результат на обличчі — шкіра стала ідеальною." },
 ];
 
 const instagramImages = [
@@ -50,7 +50,7 @@ const Index = () => {
         <div className="absolute inset-0">
           <img
             src={heroImage}
-            alt="Bloom Beauty Salon interior"
+            alt="Beauty Room interior"
             className="w-full h-full object-cover"
             loading="eager"
           />
@@ -63,26 +63,26 @@ const Index = () => {
             transition={{ duration: 0.7 }}
             className="max-w-xl"
           >
-            <p className="text-primary font-medium text-sm tracking-widest uppercase mb-4">Welcome to Bloom</p>
+            <p className="text-primary font-medium text-sm tracking-widest uppercase mb-4">Ласкаво просимо до Beauty Room</p>
             <h1 className="text-4xl md:text-6xl font-display font-semibold leading-tight mb-6">
-              Enhance Your <br />
-              <span className="text-gradient-gold">Natural Beauty</span>
+              Підкресліть свою <br />
+              <span className="text-gradient-gold">Природну Красу</span>
             </h1>
             <p className="text-lg text-muted-foreground mb-8 max-w-md">
-              Indulge in luxury treatments tailored to reveal your natural radiance. Your journey to self-care starts here.
+              Професійний догляд за вашою шкірою. Ваш шлях до ідеальної шкіри та впевненості в собі починається тут.
             </p>
             <div className="flex gap-4 flex-wrap">
               <Link
                 to="/prices"
                 className="px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-medium text-sm hover:shadow-lg hover:scale-105 transition-all duration-300"
               >
-                Book Now
+                Записатись
               </Link>
               <Link
                 to="/about"
                 className="px-8 py-3.5 rounded-full border border-border text-foreground font-medium text-sm hover:bg-secondary transition-colors duration-300"
               >
-                Learn More
+                Дізнатись більше
               </Link>
             </div>
           </motion.div>
@@ -94,11 +94,11 @@ const Index = () => {
         <div className="container mx-auto px-4 md:px-8">
           <div className="max-w-2xl mx-auto text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
-              <h2 className="text-3xl md:text-4xl font-display font-semibold mb-6">Welcome to <span className="text-gradient-gold">Bloom</span></h2>
+              <h2 className="text-3xl md:text-4xl font-display font-semibold mb-6">Про <span className="text-gradient-gold">Beauty Room</span></h2>
               <p className="text-muted-foreground leading-relaxed">
-                Founded with a passion for beauty, Bloom is more than a salon — it's a retreat. Our team of
-                certified professionals combines artistry with the finest products to deliver results that
-                make you feel confident and beautiful, inside and out.
+                Beauty Room — це простір, де професійна естетична медицина поєднується з турботою про вас. 
+                Ми використовуємо лише перевірені методики та високоякісні препарати, щоб ваша шкіра 
+                завжди виглядала здоровою, молодою та доглянутою.
               </p>
             </motion.div>
           </div>
@@ -114,7 +114,7 @@ const Index = () => {
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-display font-semibold text-center mb-14"
           >
-            Our Services
+            Наші послуги
           </motion.h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((s, i) => (
@@ -147,7 +147,7 @@ const Index = () => {
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-display font-semibold text-center mb-14"
           >
-            Why Choose Us
+            Чому обирають нас
           </motion.h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {whyUs.map((item, i) => (
@@ -180,7 +180,7 @@ const Index = () => {
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-display font-semibold text-center mb-14"
           >
-            What Clients Say
+            Відгуки клієнтів
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
             {testimonials.map((t, i) => (
@@ -208,7 +208,7 @@ const Index = () => {
               to="/reviews"
               className="inline-block px-7 py-3 rounded-full border border-border text-foreground font-medium text-sm hover:bg-card transition-colors"
             >
-              View All Reviews
+              Всі відгуки
             </Link>
           </div>
         </div>
@@ -218,14 +218,18 @@ const Index = () => {
       <section className="py-20 md:py-28">
         <div className="container mx-auto px-4 md:px-8">
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-display font-semibold mb-3">Follow Us on Instagram</h2>
-            <p className="text-muted-foreground text-sm">@bloombeautysalon</p>
+            <h2 className="text-3xl md:text-4xl font-display font-semibold mb-3">Наш Instagram</h2>
+            <a href="https://instagram.com/dr.cosmetolog_olga_svetla" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors text-sm">
+              @dr.cosmetolog_olga_svetla
+            </a>
           </motion.div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             {instagramImages.map((src, i) => (
               <motion.a
                 key={i}
-                href="#"
+                href="https://instagram.com/dr.cosmetolog_olga_svetla"
+                target="_blank"
+                rel="noopener noreferrer"
                 custom={i}
                 initial="hidden"
                 whileInView="visible"
@@ -248,15 +252,15 @@ const Index = () => {
       {/* CTA */}
       <section className="py-20 bg-primary/10">
         <div className="container mx-auto px-4 md:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-display font-semibold mb-4">Ready to Glow?</h2>
+          <h2 className="text-3xl md:text-4xl font-display font-semibold mb-4">Готові сяяти?</h2>
           <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-            Book your appointment today and discover your most beautiful self.
+            Забронюйте свій візит сьогодні та подаруйте своїй шкірі найкращий догляд.
           </p>
           <Link
             to="/prices"
             className="inline-block px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-medium text-sm hover:shadow-lg hover:scale-105 transition-all duration-300"
           >
-            Book an Appointment
+            Записатись на прийом
           </Link>
         </div>
       </section>

@@ -4,10 +4,10 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/prices", label: "Prices" },
-  { to: "/reviews", label: "Reviews" },
-  { to: "/about", label: "About Us" },
+  { to: "/", label: "Головна" },
+  { to: "/prices", label: "Ціни" },
+  { to: "/reviews", label: "Відгуки" },
+  { to: "/about", label: "Про нас" },
 ];
 
 const Header = () => {
@@ -18,7 +18,7 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto flex items-center justify-between h-16 px-4 md:px-8">
         <Link to="/" className="font-display text-2xl font-semibold tracking-wide text-foreground">
-          Bloom<span className="text-primary">.</span>
+          Beauty Room<span className="text-primary">.</span>
         </Link>
 
         {/* Desktop nav */}
@@ -40,7 +40,7 @@ const Header = () => {
           to="/prices"
           className="hidden md:inline-flex items-center px-5 py-2 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
         >
-          Book Now
+          Записатись
         </Link>
 
         {/* Mobile toggle */}
@@ -80,7 +80,7 @@ const Header = () => {
                 onClick={() => setMobileOpen(false)}
                 className="mt-2 px-6 py-2 rounded-full bg-primary text-primary-foreground text-sm font-medium"
               >
-                Book Now
+                Записатись
               </Link>
             </nav>
           </motion.div>

@@ -1,19 +1,53 @@
 import { motion } from "framer-motion";
-import { Heart, Award, Gem } from "lucide-react";
+import { Heart, Award, Gem, MapPin, Phone, Mail } from "lucide-react";
 import Layout from "@/components/Layout";
 import aboutImage from "@/assets/about-salon.jpg";
 
+import photoOlga from "@/assets/photo/1.jpg";
+import photoAnna from "@/assets/photo/4.jpg";
+import photoKateryna from "@/assets/photo/2.jpg";
+import photoEvgeniya from "@/assets/photo/3.jpg";
+import photoJulia from "@/assets/photo/5.jpg";
+
 const team = [
-  { name: "Elena Rossi", role: "Founder & Lead Stylist", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop&crop=face" },
-  { name: "Mia Chen", role: "Senior Colorist", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop&crop=face" },
-  { name: "Sophia Laurent", role: "Esthetician", img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop&crop=face" },
-  { name: "Ava Williams", role: "Nail Artist", img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face" },
+  { 
+    name: "Ольга", 
+    role: "Засновниця та косметолог", 
+    img: photoOlga, // використовуємо імпортовану змінну без лапок!
+    desc: "Закохана у свою справу. Постійно вдосконалюю свої знання, щоб надавати вам послуги найвищого рівня."
+  },
+  { 
+    name: "Анна", 
+    role: "Майстер масажу", 
+    img: photoAnna, 
+    desc: "Створюю ідеальну фігуру та здорову поставу."
+  },
+  { 
+    name: "Катерина", 
+    role: "Косметолог та майстер з Elos-епіляції", 
+    img: photoKateryna, 
+    desc: "Створюю ідеально гладеньку шкіру."
+  },
+  { 
+    name: "Євгенія",
+    role: "Косметолог", 
+    img: photoEvgeniya, 
+    desc: "Дипломований майстер з досвідом."
+  },
+  { 
+    name: "Юлія", 
+    role: "Косметолог", 
+    img: photoJulia, 
+    desc: "Створюю ідеально гладеньку шкіру."
+  }
 ];
 
+
+
 const values = [
-  { icon: Heart, title: "Passion", desc: "We pour love into every detail of your experience." },
-  { icon: Award, title: "Excellence", desc: "Continual training ensures we stay at the forefront of beauty." },
-  { icon: Gem, title: "Quality", desc: "Only premium, sustainably sourced products touch your skin." },
+  { icon: Heart, title: "Турбота", desc: "Ми дбаємо про здоров'я та красу вашої шкіри з любов'ю до кожної деталі." },
+  { icon: Award, title: "Професіоналізм", desc: "Постійне навчання та використання найсучасніших протоколів догляду та лікування." },
+  { icon: Gem, title: "Безкомпромісна якість", desc: "Працюємо виключно з сертифікованими препаратами та косметикою преміум-сегменту." },
 ];
 
 const fadeUp = {
@@ -35,9 +69,9 @@ const AboutPage = () => (
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-display font-semibold mb-4">About Us</h1>
+          <h1 className="text-4xl md:text-5xl font-display font-semibold mb-4">Про нас</h1>
           <p className="text-muted-foreground max-w-lg mx-auto">
-            The story behind Bloom — where passion meets beauty.
+            Історія Beauty Room — місце, де професіоналізм зустрічається з природною красою.
           </p>
         </motion.div>
 
@@ -50,7 +84,7 @@ const AboutPage = () => (
           >
             <img
               src={aboutImage}
-              alt="Inside Bloom Beauty Salon"
+              alt="Інтер'єр кабінету Beauty Room"
               className="rounded-2xl w-full object-cover aspect-square shadow-lg"
               loading="lazy"
             />
@@ -63,24 +97,26 @@ const AboutPage = () => (
             transition={{ duration: 0.6, delay: 0.15 }}
             className="space-y-6"
           >
-            <h2 className="font-display text-2xl md:text-3xl font-medium">
-              A Place to Feel <span className="text-gradient-gold">Beautiful</span>
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Founded in 2018, Bloom was born from a simple belief: everyone deserves a space where
-              they feel truly cared for. Our founder, Elena Rossi, envisioned a salon that combines
-              the artistry of high-end beauty with the warmth of a welcoming retreat.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Every detail — from the hand-picked fresh flowers to our curated product lines — is
-              designed to elevate your experience. Our team of certified stylists and estheticians
-              bring years of expertise and a genuine passion for making you look and feel your best.
-            </p>
-            <div className="grid grid-cols-3 gap-4 pt-4">
+            <div className="space-y-4">
+              <h2 className="font-display text-2xl md:text-3xl font-medium">
+                Простір вашої <span className="text-gradient-gold">впевненості</span>
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Beauty Room був створений з єдиною метою — подарувати кожному клієнту простір, де 
+                можна не лише покращити стан шкіри, а й по-справжньому відпочити. Ми поєднуємо 
+                передові методики естетичної медицини з атмосферою абсолютного комфорту.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Кожна деталь нашого кабінету продумана для вашої безпеки та задоволення. 
+                Ми використовуємо лише перевірені, сертифіковані препарати та суворо дотримуємося 
+                всіх санітарних норм, щоб ви могли повністю довірити нам свою красу.
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-border">
               {[
-                { num: "7+", label: "Years" },
-                { num: "12K+", label: "Clients" },
-                { num: "15", label: "Specialists" },
+                { num: "5+", label: "Років досвіду" },
+                { num: "1000+", label: "Щасливих клієнтів" },
+                { num: "100%", label: "Стерильність" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <div className="text-2xl font-display font-semibold text-primary">{stat.num}</div>
@@ -102,7 +138,7 @@ const AboutPage = () => (
           viewport={{ once: true }}
           className="text-3xl md:text-4xl font-display font-semibold text-center mb-14"
         >
-          Our Values
+          Наші цінності
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {values.map((v, i) => (
@@ -113,7 +149,7 @@ const AboutPage = () => (
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeUp}
-              className="text-center p-6"
+              className="text-center p-6 bg-background rounded-2xl border border-border shadow-sm"
             >
               <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
                 <v.icon className="w-7 h-7 text-primary" />
@@ -127,6 +163,7 @@ const AboutPage = () => (
     </section>
 
     {/* Team */}
+    {/* Team */}
     <section className="py-20 md:py-28">
       <div className="container mx-auto px-4 md:px-8">
         <motion.h2
@@ -135,9 +172,11 @@ const AboutPage = () => (
           viewport={{ once: true }}
           className="text-3xl md:text-4xl font-display font-semibold text-center mb-14"
         >
-          Meet Our Team
+          Ваші спеціалісти
         </motion.h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        {/* Використовуємо сітку (grid), щоб розставити майстрів у ряд */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 justify-items-center">
           {team.map((member, i) => (
             <motion.div
               key={member.name}
@@ -146,9 +185,9 @@ const AboutPage = () => (
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeUp}
-              className="text-center group"
+              className="text-center group w-full max-w-[280px]"
             >
-              <div className="w-36 h-36 mx-auto mb-4 rounded-full overflow-hidden border-4 border-primary/20">
+              <div className="w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-primary/20 shadow-md">
                 <img
                   src={member.img}
                   alt={member.name}
@@ -156,8 +195,13 @@ const AboutPage = () => (
                   loading="lazy"
                 />
               </div>
-              <h3 className="font-display text-lg font-medium">{member.name}</h3>
-              <p className="text-sm text-muted-foreground">{member.role}</p>
+              <h3 className="font-display text-2xl font-medium mb-1">{member.name}</h3>
+              <p className="text-base text-primary mb-3">{member.role}</p>
+              
+              {/* Тепер опис підтягується з вашого масиву team (desc) */}
+              <p className="text-sm text-muted-foreground px-2">
+                {member.desc}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -165,13 +209,18 @@ const AboutPage = () => (
     </section>
 
     {/* Certifications */}
-    <section className="py-16 bg-secondary/50">
+    <section className="py-16 bg-secondary/50 border-y border-border">
       <div className="container mx-auto px-4 md:px-8 text-center">
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-          <h2 className="text-2xl font-display font-semibold mb-6">Certifications & Awards</h2>
+          <h2 className="text-2xl font-display font-semibold mb-8">Сертифікати та досягнення</h2>
           <div className="flex flex-wrap justify-center gap-4">
-            {["L'Oréal Certified", "Vogue Best Salon 2024", "Green Beauty Certified", "CIDESCO Diploma"].map((cert) => (
-              <span key={cert} className="px-5 py-2.5 rounded-full bg-card border border-border text-sm text-muted-foreground">
+            {[
+              "Медична освіта", 
+              "Сертифікований фахівець з ін'єкцій", 
+              "Експерт з апаратної косметології", 
+              "Учасник міжнародних конгресів"
+            ].map((cert) => (
+              <span key={cert} className="px-5 py-2.5 rounded-full bg-background border border-border text-sm font-medium text-foreground shadow-sm">
                 {cert}
               </span>
             ))}
@@ -189,41 +238,78 @@ const AboutPage = () => (
           viewport={{ once: true }}
           className="text-3xl md:text-4xl font-display font-semibold text-center mb-14"
         >
-          Find Us
+          Чекаємо на вас
         </motion.h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="space-y-4"
+            className="space-y-6 flex flex-col justify-center"
           >
-            <div className="bg-card rounded-2xl border border-border p-6 space-y-3">
-              <h3 className="font-display text-lg font-medium">Contact Information</h3>
-              <p className="text-sm text-muted-foreground">123 Rose Avenue, Suite 4, New York, NY 10001</p>
-              <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
-              <p className="text-sm text-muted-foreground">hello@bloomsalon.com</p>
+            <div className="bg-card rounded-2xl border border-border p-8 shadow-sm space-y-5">
+              <h3 className="font-display text-xl font-medium border-b border-border pb-3">Контактна інформація</h3>
+              
+              <div className="flex items-start gap-3 text-muted-foreground">
+                <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                <a 
+                  href="https://maps.app.goo.gl/xwGmQeh1iDPxacmS7" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-primary transition-colors leading-relaxed"
+                >
+                  м. Бердичів<br />вул. Європейська, 71
+                </a>
+              </div>
+              
+              <div className="flex items-center gap-3 text-muted-foreground">
+                <Phone className="w-5 h-5 text-primary shrink-0" />
+                <a href="tel:+380986411412" className="hover:text-primary transition-colors">
+                  +38 (098) 641-14-12
+                </a>
+              </div>
+              
+              {/* <div className="flex items-center gap-3 text-muted-foreground">
+                <Mail className="w-5 h-5 text-primary shrink-0" />
+                <a href="mailto:beautyroom@example.com" className="hover:text-primary transition-colors">
+                  beautyroom@example.com
+                </a>
+              </div> */}
             </div>
-            <div className="bg-card rounded-2xl border border-border p-6 space-y-3">
-              <h3 className="font-display text-lg font-medium">Hours</h3>
-              <p className="text-sm text-muted-foreground">Mon – Fri: 9:00 AM – 8:00 PM</p>
-              <p className="text-sm text-muted-foreground">Saturday: 10:00 AM – 6:00 PM</p>
-              <p className="text-sm text-muted-foreground">Sunday: 11:00 AM – 5:00 PM</p>
+
+            <div className="bg-card rounded-2xl border border-border p-8 shadow-sm space-y-4">
+              <h3 className="font-display text-xl font-medium border-b border-border pb-3">Графік роботи</h3>
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span className="font-medium text-foreground">Понеділок – П'ятниця</span>
+                  <span>9:00 – 18:00</span>
+                </div>
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span className="font-medium text-foreground">Субота</span>
+                  <span>10:00 – 14:00</span>
+                </div>
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span className="font-medium text-foreground">Неділя</span>
+                  <span>За домовленістю</span>
+                </div>
+              </div>
             </div>
           </motion.div>
+          
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="rounded-2xl overflow-hidden border border-border h-[350px]"
+            className="rounded-2xl overflow-hidden border border-border h-[400px] lg:h-auto shadow-sm"
           >
+            {/* Реальна карта Бердичева замість заглушки */}
             <iframe
-              title="Bloom Beauty Salon location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.00425878428698!3d40.74076794379132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sGoogle!5e0!3m2!1sen!2sus!4v1234567890"
+              title="Beauty Room location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d915.9649652842539!2d28.60056005984936!3d49.89127618726049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472cfbb6734c5699%3A0xcfa995011d77c643!2sBeauty%20Room!5e0!3m2!1suk!2sua!4v1772015227058!5m2!1suk!2sua"
               width="100%"
               height="100%"
-              style={{ border: 0 }}
+              style={{ border: 0, minHeight: "400px" }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
