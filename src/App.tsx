@@ -19,8 +19,9 @@ const App = () => (
       <CartProvider>
         <Toaster />
         <Sonner />
-        <CartDrawer />
         <BrowserRouter>
+          {/* CartDrawer тут — всередині BrowserRouter, бо використовує useNavigate */}
+          <CartDrawer />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/prices" element={<PricePage />} />

@@ -6,7 +6,7 @@ import { useCart } from "@/context/CartContext";
 import { useToast } from "@/hooks/use-toast";
 
 // ── Змінити імена майстрів тут ──────────────────────────────
-const MASTERS = ["Будь-який майстер", "Ольга", "Анна", "Катерина", "Євгенія", "Юлія"]
+const MASTERS = ["Будь-який майстер", "Ольга", "Анна", "Каатерина", "Євгенія", "Юлія"]
 // ───────────────────────────────────────────────────────────
 
 const API_URL = "https://thebeauty-room.com/appointmentapi.php";
