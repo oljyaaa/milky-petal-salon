@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShoppingBag } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCart } from "@/context/CartContext";
 
 const navLinks = [
   { to: "/", label: "Головна" },
@@ -13,6 +14,7 @@ const navLinks = [
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const { openCart, totalCount } = useCart();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -36,21 +38,52 @@ const Header = () => {
           ))}
         </nav>
 
-        <Link
-          to="/prices"
-          className="hidden md:inline-flex items-center px-5 py-2 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
-        >
-          Записатись
-        </Link>
+        {/* Desktop right: cart + записатись */}
+        <div className="hidden md:flex items-center gap-3">
+          <button
+            onClick={openCart}
+            className="relative p-2 text-muted-foreground hover:text-primary transition-colors"
+            aria-label="Кошик"
+          >
+            <ShoppingBag size={20} />
+            {totalCount > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 bg-primary text-primary-foreground text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none">
+                {totalCount}
+              </span>
+            )}
+          </button>
 
-        {/* Mobile toggle */}
-        <button
-          className="md:hidden p-2 text-foreground"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          <Link
+            to="/prices"
+            className="inline-flex items-center px-5 py-2 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
+          >
+            Записатись
+          </Link>
+        </div>
+
+        {/* Mobile right: cart + burger */}
+        <div className="md:hidden flex items-center gap-2">
+          <button
+            onClick={openCart}
+            className="relative p-2 text-muted-foreground hover:text-primary transition-colors"
+            aria-label="Кошик"
+          >
+            <ShoppingBag size={20} />
+            {totalCount > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 bg-primary text-primary-foreground text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none">
+                {totalCount}
+              </span>
+            )}
+          </button>
+
+          <button
+            className="p-2 text-foreground"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile nav */}
