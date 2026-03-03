@@ -4,7 +4,7 @@ import { X, Trash2, ShoppingBag, Send } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/hooks/use-toast";
 
-const MASTERS = ["Будь-який майстер", "Майстер 1", "Майстер 2", "Майстер 3", "Майстер 4"];
+const MASTERS = ["Будь-який майстер", "Ольга", "Анна", "Каатерина", "Євгенія", "Юлія"];
 const API_URL = "https://thebeauty-room.com/appointmentapi.php";
 
 const CartDrawer = () => {
