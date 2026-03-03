@@ -1,78 +1,149 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
+import { Plus } from "lucide-react";
 
-const categories = [
+// ─── TYPES ────────────────────────────────────────────────────────────────────
+
+interface Service {
+  id: number;
+  name: string;
+  price: string;
+}
+
+interface Category {
+  id: number;
+  name: string;
+  services: Service[];
+}
+
+// ─── Розподіл категорій по вкладках ──────────────────────────────────────────
+// category_id з таблиці servicecategories
+
+const TAB_CONFIG = [
   {
-    name: "Hair Services",
-    items: [
-      { service: "Women's Haircut", desc: "Precision cut tailored to your face shape and lifestyle", price: "$65+" },
-      { service: "Men's Haircut", desc: "Classic or modern styles with hot towel finish", price: "$40+" },
-      { service: "Blowout & Styling", desc: "Bouncy, voluminous blowout for any occasion", price: "$55+" },
-      { service: "Full Color", desc: "Root-to-tip single process color application", price: "$120+" },
-      { service: "Highlights (Partial)", desc: "Face-framing highlights for dimension", price: "$150+" },
-      { service: "Highlights (Full)", desc: "All-over foil highlights for a luminous look", price: "$220+" },
-      { service: "Balayage", desc: "Hand-painted, sun-kissed color technique", price: "$250+" },
-      { service: "Deep Conditioning", desc: "Intensive moisture repair treatment", price: "$45+" },
-    ],
+    label: "ІН'ЄКЦІЙНІ ПРОЦЕДУРИ",
+    categoryIds: [12, 13, 14, 15, 16, 17, 19],
   },
   {
-    name: "Nail Services",
-    items: [
-      { service: "Classic Manicure", desc: "Nail shaping, cuticle care, and polish", price: "$35" },
-      { service: "Gel Manicure", desc: "Long-lasting gel polish with chip-free shine", price: "$50" },
-      { service: "Classic Pedicure", desc: "Relaxing foot soak, scrub, and polish", price: "$45" },
-      { service: "Gel Pedicure", desc: "Gel polish pedicure with callus treatment", price: "$60" },
-      { service: "Nail Art (per nail)", desc: "Custom designs from minimalist to ornate", price: "$5+" },
-      { service: "Acrylic Full Set", desc: "Full set of sculpted acrylic nails", price: "$75+" },
-    ],
+    label: "ЛАЗЕР / SMAS",
+    categoryIds: [8, 9, 10, 11, 23, 24],
   },
   {
-    name: "Facial Treatments",
-    items: [
-      { service: "Classic Facial", desc: "Deep cleansing with hydrating mask", price: "$85" },
-      { service: "Deep Cleansing Facial", desc: "Extraction-focused treatment for clear skin", price: "$110" },
-      { service: "Anti-Aging Facial", desc: "Firming treatment with collagen boost", price: "$130" },
-      { service: "Chemical Peel", desc: "Exfoliating peel for renewed skin texture", price: "$150" },
-      { service: "Microdermabrasion", desc: "Crystal-free skin resurfacing treatment", price: "$120" },
-      { service: "LED Light Therapy", desc: "Non-invasive light therapy for skin rejuvenation", price: "$75" },
-    ],
-  },
-  {
-    name: "Makeup Services",
-    items: [
-      { service: "Everyday Makeup", desc: "Natural, polished look for daily wear", price: "$60" },
-      { service: "Evening Glam", desc: "Full glam makeup for special occasions", price: "$90" },
-      { service: "Bridal Makeup", desc: "Long-lasting bridal look with trial included", price: "$200" },
-      { service: "Makeup Lesson", desc: "One-on-one tutorial with professional tips", price: "$120" },
-    ],
+    label: "RF / ПІГМЕНТАЦІЯ / ІНШЕ",
+    categoryIds: [1, 2, 3, 4, 5, 6, 7, 18, 20, 21, 22, 25, 26, 27, 28, 29],
   },
 ];
 
+// ─── URL до API — заміни на свій домен ───────────────────────────────────────
+const API_URL = "https://thebeauty-room.com/priceapi.php";
+
+// ─── ACCORDION ROW ────────────────────────────────────────────────────────────
+
+const CategoryRow = ({ category }: { category: Category }) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="border-b border-border last:border-b-0">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center justify-between py-3.5 text-left group"
+      >
+        <span className="text-sm text-foreground group-hover:text-primary transition-colors leading-snug pr-3">
+          {category.name}
+        </span>
+        <Plus
+          className={`w-4 h-4 shrink-0 text-muted-foreground transition-transform duration-300 ${
+            open ? "rotate-45" : ""
+          }`}
+        />
+      </button>
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="body"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.22, ease: "easeInOut" }}
+            className="overflow-hidden"
+          >
+            <div className="mb-3 rounded-lg overflow-hidden bg-secondary/30">
+              {category.services.map((svc) => (
+                <div
+                  key={svc.id}
+                  className="flex items-start justify-between gap-3 py-2 px-3 hover:bg-secondary/60 transition-colors"
+                >
+                  <span className="text-xs text-muted-foreground leading-snug flex-1">
+                    {svc.name}
+                  </span>
+                  <span className="text-xs font-semibold text-primary whitespace-nowrap">
+                    {svc.price}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+// ─── PAGE ─────────────────────────────────────────────────────────────────────
+
 const PricePage = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const [allCategories, setAllCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json() as Promise<Category[]>;
+      })
+      .then((data) => {
+        setAllCategories(data);
+        setLoading(false);
+      })
+      .catch((err: Error) => {
+        setError("Не вдалося завантажити дані. " + err.message);
+        setLoading(false);
+      });
+  }, []);
+
+  const tabCategories = allCategories.filter((cat) =>
+    TAB_CONFIG[activeTab].categoryIds.includes(cat.id)
+  );
 
   return (
     <Layout>
       <section className="py-20 md:py-28">
         <div className="container mx-auto px-4 md:px-8">
+
+          {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-14"
           >
-            <h1 className="text-4xl md:text-5xl font-display font-semibold mb-4">Our Prices</h1>
-            <p className="text-muted-foreground max-w-md mx-auto">
-              Transparent pricing for all our premium beauty services.
+            <h1 className="text-4xl md:text-5xl font-display font-semibold mb-4">
+              Наші процедури
+            </h1>
+            <p className="text-muted-foreground max-w-md mx-auto text-sm">
+              Натисніть на категорію, щоб переглянути ціни
             </p>
           </motion.div>
 
-          {/* Category Tabs */}
+          {/* Tabs */}
           <div className="flex flex-wrap justify-center gap-2 mb-12">
-            {categories.map((cat, i) => (
+            {TAB_CONFIG.map((tab, i) => (
               <button
-                key={cat.name}
+                key={tab.label}
                 onClick={() => setActiveTab(i)}
                 className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                   activeTab === i
@@ -80,50 +151,57 @@ const PricePage = () => {
                     : "bg-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/30"
                 }`}
               >
-                {cat.name}
+                {tab.label}
               </button>
             ))}
           </div>
 
-          {/* Price List */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.3 }}
-              className="max-w-3xl mx-auto"
-            >
-              <div className="bg-card rounded-2xl border border-border overflow-hidden">
-                {categories[activeTab].items.map((item, idx) => (
-                  <div
-                    key={item.service}
-                    className={`flex flex-col sm:flex-row sm:items-center justify-between px-6 py-5 gap-2 ${
-                      idx !== categories[activeTab].items.length - 1 ? "border-b border-border" : ""
-                    } hover:bg-secondary/50 transition-colors`}
-                  >
-                    <div className="flex-1">
-                      <span className="text-sm font-medium block">{item.service}</span>
-                      <span className="text-xs text-muted-foreground">{item.desc}</span>
-                    </div>
-                    <span className="text-sm text-primary font-semibold whitespace-nowrap">{item.price}</span>
-                  </div>
-                ))}
+          {/* Content */}
+          <div className="max-w-2xl mx-auto">
+            {loading && (
+              <div className="text-center py-16 text-muted-foreground text-sm animate-pulse">
+                Завантаження...
               </div>
-            </motion.div>
-          </AnimatePresence>
+            )}
+
+            {error && (
+              <div className="text-center py-16 text-destructive text-sm">
+                {error}
+              </div>
+            )}
+
+            {!loading && !error && (
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeTab}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <div className="bg-card rounded-2xl border border-border px-6 py-2">
+                    {tabCategories.map((cat) => (
+                      <CategoryRow key={cat.id} category={cat} />
+                    ))}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            )}
+          </div>
 
           {/* CTA */}
           <div className="text-center mt-14">
-            <p className="text-muted-foreground mb-4 text-sm">Prices may vary based on hair length and complexity.</p>
+            <p className="text-muted-foreground mb-4 text-sm">
+              Ціни вказані орієнтовно. Точну вартість уточнюйте на консультації.
+            </p>
             <Link
               to="/about"
               className="inline-block px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-medium text-sm hover:shadow-lg hover:scale-105 transition-all duration-300"
             >
-              Book Your Appointment
+              Записатись
             </Link>
           </div>
+
         </div>
       </section>
     </Layout>
